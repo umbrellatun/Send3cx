@@ -18,9 +18,15 @@ class CC3CXTicketController extends Controller
 
     public function index()
     {
-        $data["status"] = 0;
+         $details = [
+              'title' => 'Mail from ItSolutionStuff.com',
+              'body' => 'This is for testing email using smtp'
+         ];
 
-        return json_encode($data);
+         \Mail::to('sataporn.chn@gmail.com')->send(new \App\Mail\Sendmail($details));
+         $data["status"] = 0;
+
+         return json_encode($data);
     }
 
     public function store(Request $request)
@@ -41,8 +47,9 @@ class CC3CXTicketController extends Controller
                    ,'created_name' => $items["created_name"]
                    ,'created_at' => date('Y-m-d H:i:s')
               ];
-              
+
               CC3CXTicket::insert($data);
+
               DB::commit();
               $return['status'] = "success";
          } catch (\Exception $e) {
