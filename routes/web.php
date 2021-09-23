@@ -17,12 +17,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-
-$router->group(['prefix' => 'api/3cx'], function () use ($router) {
-    $router->get('ind', 'CC3CXTicketController@index');
-    $router->post('save', 'CC3CXTicketController@store');
-});
-
 Route::prefix('/api/3cx')->group(function () {
     Route::get('/ind', 'CC3CXTicketController@index');
     Route::post('/save', 'CC3CXTicketController@store');
